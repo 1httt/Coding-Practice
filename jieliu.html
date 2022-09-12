@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>
+        show time
+    </button>
+    <div>
+        time
+    </div>
+    <script>
+        //获取元素
+        var btn = document.querySelector('button');
+        var div = document.querySelector('div');
+        //注册时间
+        let count = 0;
+
+        // function throttle(fn, delay) {
+        //     let timer = null;
+        //     return function () {
+        //         if (timer) {
+        //             return;
+        //         }
+        //         timer = setTimeout(() => {
+        //             fn();
+        //             timer = null;
+        //         }, delay);
+        //     }
+        // }
+
+
+        function throttle(fn, delay) {
+            let past = null;
+            return function () {
+                let now = Date.now();
+                if (now - past >= delay) {
+                    fn();
+                    past = now;
+                }
+
+            }
+        }
+
+
+        // 方法三：时间戳 & 定时器
+        // function throttle(fn, delay) {
+        
+        //     let timer = null;
+        //     let prev = null;
+    
+        //     return function () {
+        //         let now = Date.now();
+        //         let remaining = delay - (now - prev);
+        //         const args = arguments;
+        //         clearTimeout(timer);
+        //         if (remaining <= 0) {
+        //             fn.apply(this, args);
+        //             prev = Date.now();
+        //         } else {
+        //             // 否则，过了剩余时间执行最后一次fn
+        //             timer = setTimeout(() => {
+        //                 fn.apply(this, args)
+        //             }, delay);
+        //         }
+        //     }
+        // }
+
+
+
+        btn.addEventListener('click', throttle(() => {
+            count++;
+            div.innerText = count;
+        }, 3000))
+        // btn.addEventListener('click', () => {
+        //     count++;
+        //     div.innerText = count;
+        // })
+    </script>
+</body>
+
+</html>

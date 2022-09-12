@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model="a"> <br>
+        <input type="text" v-model="b"> <br>
+        <!-- <span>{{a}}</span> -->
+        <span>{{fullname}}</span>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            data: {
+                a: 'viper',
+                b: 'ye'
+            },
+            methods: {
+                show(e){
+                    if(e.keyCode !== 13) return;
+                    console.log(e.target.value+'show u <3')
+                }
+            },
+            computed: {
+                fullname: {
+                    get(){
+                        return this.a + '' + this.b;
+                    },
+                    set(value){
+                        let fn = value.split(' ');
+                        this.a = fn[0];
+                        this.b = fn[1];
+                    }
+                }
+                
+            }
+        })
+
+        vm.$mount('#box')
+    </script>
+</body>
+</html>

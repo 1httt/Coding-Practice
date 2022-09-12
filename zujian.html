@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <xuexiao></xuexiao>
+        <hr>
+        <xuesheng></xuesheng>
+    </div>
+    <script>
+
+        // 1. 创建组件
+        const school = Vue.extend({
+            tamplate: `
+                <div>
+                    <h2>school: {{schoolName}}</h2>
+                    <h2>address: {{address}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    schoolName: 'kcl',
+                    addresss: 'London'
+                }
+            }
+        })
+
+        // 1. 创建组件
+        const student = Vue.extend({
+            tamplate: `
+                <div>
+                    <h2>name: {{studentName}}</h2>
+                    <h2>age: {{age}}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    studentName: 'yht',
+                    age: 23
+                }
+            }
+        })
+
+        let vm = new Vue({
+            data: {
+            },
+            methods: {
+            },
+            // 2.注册组件
+            components: {
+                xuexiao: school,
+                xuesheng: student
+            }
+        })
+
+        vm.$mount("#box");
+    </script>
+</body>
+
+</html>

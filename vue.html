@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.7/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <span>up: {{name}} </span>
+        <input type="text" v-model='name'>
+        <span>more: {{more.like}} </span>
+        <input type="text" v-model=more.like>
+    </div>
+
+    <script>
+        class Vue {
+            constructor(obj_instance) {
+                this.$data = obj_instance.data;
+                Observer(this.$data);
+            }
+        }
+
+        function Observer(data) {
+            if(!data || typeof data !== 'object') return;
+            Object.keys(data).forEach(key => {
+                let value = data[key];
+                Observer(value);
+                Object.defineProperty(data, key, {
+                    enumerable: true,
+                    configurable: true,
+                    get: function () {
+                        console.log("访问: "+value);
+                        return value;
+                    },
+                    set: function (newValue) {
+                        console.log("设置: "+value);
+                        value = newValue;
+                        Observer(newValue);
+                    }
+                })
+            })
+        }
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: "技术🥚",
+                more: {
+                    like: "一键三连！"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
